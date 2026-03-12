@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { API_URL } from '../../config';
-import toast from 'react-hot-toast';
 import { useAuth } from '../../context/AuthContext';
 
 export interface IActivity {
@@ -118,8 +117,8 @@ export const ProgressChart: React.FC<{ refreshKey?: number }> = ({ refreshKey = 
             key={s.key}
             onClick={() => toggleSeries(s.key)}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all border ${visibleSeries.has(s.key)
-                ? 'bg-slate-800 border-slate-600 text-white shadow-sm'
-                : 'bg-transparent border-slate-700/50 text-slate-500 hover:text-slate-300'
+              ? 'bg-slate-800 border-slate-600 text-white shadow-sm'
+              : 'bg-transparent border-slate-700/50 text-slate-500 hover:text-slate-300'
               }`}
           >
             <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: visibleSeries.has(s.key) ? s.color : '#475569' }} />
