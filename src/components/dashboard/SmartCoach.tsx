@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { API_URL } from '../../config';
-import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, Send, Sparkles, TrendingUp, Utensils } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -16,7 +15,7 @@ export const SmartCoach: React.FC = () => {
   const [prompt, setPrompt] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  
+
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
@@ -72,7 +71,7 @@ export const SmartCoach: React.FC = () => {
     <div className="glass-card flex flex-col h-full relative overflow-hidden">
       {/* Decorative header glow */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-cyan-400" />
-      
+
       <div className="p-6 border-b border-slate-700/50 flex items-center justify-between z-10 bg-slate-800/50">
         <div className="flex items-center gap-3">
           <div className="relative">
@@ -96,18 +95,17 @@ export const SmartCoach: React.FC = () => {
       <div className="flex-1 p-6 flex flex-col gap-4 overflow-y-auto custom-scrollbar">
         <AnimatePresence initial={false}>
           {messages.map((msg) => (
-            <motion.div 
+            <motion.div
               key={msg.id}
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              <div 
-                className={`max-w-[85%] p-4 rounded-2xl ${
-                  msg.sender === 'user' 
-                    ? 'bg-violet-600 text-white rounded-tr-sm' 
+              <div
+                className={`max-w-[85%] p-4 rounded-2xl ${msg.sender === 'user'
+                    ? 'bg-violet-600 text-white rounded-tr-sm'
                     : 'bg-slate-800/60 border border-slate-700/50 text-slate-200 rounded-tl-sm'
-                }`}
+                  }`}
               >
                 {msg.sender === 'coach' && (
                   <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-700/50">
@@ -119,9 +117,9 @@ export const SmartCoach: React.FC = () => {
               </div>
             </motion.div>
           ))}
-          
+
           {isTyping && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="flex justify-start"
@@ -135,7 +133,7 @@ export const SmartCoach: React.FC = () => {
           )}
         </AnimatePresence>
         <div ref={messagesEndRef} />
-        
+
         {messages.length === 1 && (
           <div className="flex gap-2 flex-wrap mt-auto pt-4">
             {suggestions.map((s, i) => (
@@ -165,7 +163,7 @@ export const SmartCoach: React.FC = () => {
             placeholder="Pregúntale a tu entrenador IA cualquier cosa..."
             className="w-full bg-slate-800 border-none rounded-xl py-3 pl-4 pr-12 text-sm text-slate-200 placeholder:text-slate-500 focus:ring-2 focus:ring-violet-500/50 focus:outline-none transition-shadow"
           />
-          <button 
+          <button
             onClick={() => handleSend()}
             disabled={!prompt.trim() || isTyping}
             className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-violet-600 hover:bg-violet-500 disabled:bg-slate-700 disabled:opacity-50 rounded-lg text-white transition-colors shadow-lg shadow-violet-500/20"
